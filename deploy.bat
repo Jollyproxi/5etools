@@ -6,7 +6,7 @@ set CONTAINER=5e2024
 set PORT=8224
 set IMAGE_REF=ghcr.io/5etools-mirror-3/5etools-img:latest
 set LOCAL_URL=http://localhost:%PORT%
-set IMG_REPO_DIR=%~dp0..\5etools-img
+set IMG_REPO_DIR=%~dp0img
 
 :: File di stato di commit
 set LAST_COMMIT_FILE=.last_commit_%IMAGE%
