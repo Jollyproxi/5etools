@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   5etools:
     image: ghcr.io/5etools-mirror-3/5etools-img:latest
