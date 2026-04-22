@@ -39,7 +39,11 @@ echo [INFO] Rilevate modifiche (repo principale, repo img o immagine GHCR). Eseg
 
 :RecreateAll
 echo [INFO] Installo dipendenze npm...
-call npm i
+if exist package-lock.json (
+	call npm ci --no-audit --no-fund
+) else (
+	call npm i --no-audit --no-fund
+)
 if errorlevel 1 (
 	echo [ERRORE] npm i fallito.
 	goto :End
@@ -86,13 +90,15 @@ set CURRENT_IMAGE_ID=
 set PULL_OK=0
 
 echo [INFO] Aggiorno immagine di riferimento da GHCR: %IMAGE_REF%
+
 for /L %%N in (1,1,3) do (
 	echo [INFO] Tentativo pull immagine GHCR %%N/3...
-	docker pull %IMAGE_REF% >nul 2>&1
+	docker pull %IMAGE_REF%
 	if not errorlevel 1 (
 		set PULL_OK=1
 		goto :AfterRefPull
 	)
+	echo [WARN] Tentativo pull GHCR %%N/3 fallito.
 )
 
 :AfterRefPull
