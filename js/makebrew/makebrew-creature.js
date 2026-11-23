@@ -436,7 +436,7 @@ export class CreatureBuilder extends BuilderBase {
 
 	async _pInit () {
 		const [bestiaryFluffIndex, jsonCreature, items] = await Promise.all([
-			DataUtil.loadJSON("data/bestiary/fluff-index.json"),
+			DataUtil.monsterFluff.pLoadIndex(),
 			DataUtil.loadJSON("data/makebrew-creature.json"),
 			Renderer.item.pBuildList(),
 			DataUtil.monster.pPreloadLegendaryGroupsSite(),
@@ -790,6 +790,15 @@ export class CreatureBuilder extends BuilderBase {
 				title: "If specified, this will override the default number (3) of legendary actions available for the creature when in its lair.",
 			},
 			"legendaryActionsLair",
+		).vee.appendTo(abilTab.wrpTab);
+		BuilderUi.getStateIptString(
+			"Legendary Action (Lair) Condition",
+			cb,
+			this._state,
+			{
+				title: "If specified, this will override the default \"in lair\" condition for legendary actions.",
+			},
+			"legendaryActionsLairCondition",
 		).vee.appendTo(abilTab.wrpTab);
 		BuilderUi.getStateIptBoolean(
 			"Name is Proper Noun",
